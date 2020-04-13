@@ -15,7 +15,7 @@ spec:
         app: ping-pong
     spec:
       containers:
-        - image: devopscontinens/ping-pong:v87
+        - image: devopscontinens/ping-pong:v1
           name: ping-pong
           ports:
             - containerPort: 8080
