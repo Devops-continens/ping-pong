@@ -4,4 +4,4 @@ MAINTAINER devops-continens
 COPY target/*.jar /opt/app.jar
 ENTRYPOINT ["/usr/bin/java"]
 CMD ["-jar", "/opt/app.jar"]
-EXPOSE 8080
+EXPOSE 80
