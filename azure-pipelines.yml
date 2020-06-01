@@ -33,6 +33,11 @@ stages:
       inputs:
         command: 'build'
         Dockerfile: '**/Dockerfile'
+- stage: Scan
+  displayName: Scan Image
+  jobs:
+  - job: Scan
+    steps:
     - task: aquasecScanner@4
       inputs:
         image: 'nginx:latest'
