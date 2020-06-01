@@ -56,12 +56,12 @@ stages:
     - task: aquasecScanner@4
       inputs:
         image: 'nginx:latest'
-        scanType: 'local'
+        scanType: 'hosted'
         register: true
         hideBase: false
         showNegligible: false
         windowsScannerVersion: '4.2.0'
-        registry: 'local'
+        registry: 'Docker Hub'
         connection: 'aqua-csp'
         caCertificates: true
         scanMalware: true
