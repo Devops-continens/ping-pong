@@ -35,6 +35,7 @@ stages:
         repository: 'devopscontinens'
         command: 'build'
         Dockerfile: '**/Dockerfile'
+        arguments: '--tag test:1.0'
     # - task: CmdLine@2
     #   displayName: Docker image list after build
     #   inputs:
