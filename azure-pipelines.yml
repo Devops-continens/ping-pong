@@ -38,6 +38,11 @@ stages:
   jobs:
   - job: Scan
     steps:
+
+    - task: Docker@2
+      inputs:
+        containerRegistry: 'aqua registry'
+        command: 'login'
     - task: aquasecScanner@4
       inputs:
         image: 'nginx:latest'
