@@ -35,6 +35,10 @@ stages:
         repository: 'devopscontinens'
         command: 'build'
         Dockerfile: '**/Dockerfile'
+    - task: CmdLine@2
+      displayName: Docker image list after build
+      inputs:
+        script: 'docker images ls'
 # - stage: Scan
 #   displayName: Scan Image
 #   jobs:
@@ -46,6 +50,7 @@ stages:
         containerRegistry: 'aqua registry'
         command: 'login'
     - task: CmdLine@2
+      displayName: Docker image list after login
       inputs:
         script: 'docker image ls'
     - task: aquasecScanner@4
