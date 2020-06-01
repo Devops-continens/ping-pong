@@ -31,6 +31,8 @@ stages:
         sonarQubeRunAnalysis: false
     - task: Docker@2
       inputs:
+        containerRegistry: 'docker hub'
+        repository: 'devopscontinens'
         command: 'build'
         Dockerfile: '**/Dockerfile'
 # - stage: Scan
