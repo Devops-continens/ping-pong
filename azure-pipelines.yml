@@ -35,16 +35,16 @@ stages:
         repository: 'devopscontinens'
         command: 'build'
         Dockerfile: '**/Dockerfile'
-    - task: CmdLine@2
-      displayName: Docker image list after build
-      inputs:
-        script: 'docker images ls -a'
+    # - task: CmdLine@2
+    #   displayName: Docker image list after build
+    #   inputs:
+    #     script: 'docker images ls -a'
       
     - task: CmdLine@2
       displayName: Docker image list after build  
       inputs:
         script: |
-          docker images ls
+          docker image ls --all
           echo "dummy"
           echo $(Build.BuildId)
           echo $(Build.Repository.Name)
