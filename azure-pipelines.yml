@@ -73,7 +73,7 @@ stages:
         windowsScannerVersion: '4.2.0'
         scanner: 'registry.aquasec.com/scanner:4.6'
         registry: 'local'
-        connection: 'aqua-csp'
+        connection: 'aqua csp'
         caCertificates: true
         scanMalware: true
         showWillNotFix: true
