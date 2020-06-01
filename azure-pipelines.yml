@@ -33,11 +33,11 @@ stages:
       inputs:
         command: 'build'
         Dockerfile: '**/Dockerfile'
-- stage: Scan
-  displayName: Scan Image
-  jobs:
-  - job: Scan
-    steps:
+# - stage: Scan
+#   displayName: Scan Image
+#   jobs:
+#   - job: Scan
+#     steps:
 
     - task: Docker@2
       inputs:
