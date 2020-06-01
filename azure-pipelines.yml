@@ -45,6 +45,7 @@ stages:
       inputs:
         script: |
           docker images ls
+          echo "dummy"
           echo $(Build.BuildId)
 # - stage: Scan
 #   displayName: Scan Image
@@ -52,14 +53,16 @@ stages:
 #   - job: Scan
 #     steps:
 
-    - task: Docker@2
-      inputs:
-        containerRegistry: 'aqua registry'
-        command: 'login'
+    # - task: Docker@2
+    #   inputs:
+    #     containerRegistry: 'aqua registry'
+    #     command: 'login'
     - task: CmdLine@2
       displayName: Docker image list after login
       inputs:
-        script: 'docker image ls'
+        script:  |
+          docker image pull nginx:latest
+          docker image ls
     - task: aquasecScanner@4
       inputs:
         image: 'nginx:latest'
