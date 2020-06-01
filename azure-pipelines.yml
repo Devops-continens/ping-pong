@@ -58,12 +58,12 @@ stages:
       inputs:
         containerRegistry: 'aqua registry'
         command: 'login'
-    - task: CmdLine@2
-      displayName: Docker pull
-      inputs:
-        script:  |
-          docker image pull nginx:latest
-          docker image ls
+    # - task: CmdLine@2
+    #   displayName: Docker pull
+    #   inputs:
+    #     script:  |
+    #       docker image pull nginx:latest
+    #       docker image ls
     - task: aquasecScanner@4
       inputs:
         image: 'nginx:latest'
