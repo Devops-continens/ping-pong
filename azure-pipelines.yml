@@ -33,3 +33,15 @@ stages:
       inputs:
         command: 'build'
         Dockerfile: '**/Dockerfile'
+    - task: aquasecScanner@4
+      inputs:
+        image: 'nginx:latest'
+        scanType: 'local'
+        register: true
+        hideBase: false
+        showNegligible: false
+        windowsScannerVersion: '4.2.0'
+        connection: 'aqua-csp'
+        caCertificates: true
+        scanMalware: true
+        showWillNotFix: true
