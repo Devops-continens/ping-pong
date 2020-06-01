@@ -35,7 +35,7 @@ stages:
         repository: 'devopscontinens'
         command: 'build'
         Dockerfile: '**/Dockerfile'
-        tags: 'test:latest'
+        tags: 'ping-ping'
     - task: CmdLine@2
       displayName: Docker image list after build
       inputs:
