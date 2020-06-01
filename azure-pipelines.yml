@@ -35,11 +35,10 @@ stages:
         repository: 'devopscontinens'
         command: 'build'
         Dockerfile: '**/Dockerfile'
-        tags: 'ping-ping'
     - task: CmdLine@2
       displayName: Docker image list after build
       inputs:
-        script: 'docker images ls'
+        script: 'docker images ls -a'
       
     - task: CmdLine@2
       displayName: Docker image list after build  
