@@ -68,7 +68,7 @@ stages:
           docker image ls
     - task: aquasecScanner@4
       inputs:
-        image: 'nginx:latest'
+        image: 'test:1.0'
         scanType: 'local'
         register: true
         hideBase: false
