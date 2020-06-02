@@ -88,6 +88,7 @@ stages:
         containerRegistry: 'aqua registry'
         command: 'logout'
     - task: Docker@2
+      displayName: Docker login azure registry
       inputs:
         containerRegistry: 'azure-container-registry'
         command: 'login'
