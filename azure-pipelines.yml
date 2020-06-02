@@ -87,17 +87,17 @@ stages:
     #   inputs:
     #     containerRegistry: 'aqua registry'
     #     command: 'logout'
-    - stage: Push Image
-      displayName: Push Image
-      jobs:
-      - job: Login
-        displayName: Docker Login
-        steps:
-        - task: Docker@2
-          inputs:
-            containerRegistry: 'azure-container-registry'
-            command: 'login'
-      - task: CmdLine@2
-        displayName: Docker Commands
-        inputs:
-          script: 'docker image ls -a'
+- stage: Push
+  displayName: Push Image
+  jobs:
+  - job: Login
+    displayName: Docker Login
+    steps:
+    - task: Docker@2
+      inputs:
+        containerRegistry: 'azure-container-registry'
+        command: 'login'
+    - task: CmdLine@2
+      displayName: Docker Commands
+      inputs:
+        script: 'docker image ls -a'
