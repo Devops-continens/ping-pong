@@ -51,6 +51,7 @@ stages:
           echo $(Build.Repository.Name)
           echo $(Build.DefinitionName)
           echo $(dockerhub)
+          echo $(usernamespace)/$(projectname)
 # - stage: Scan
 #   displayName: Scan Image
 #   jobs:
