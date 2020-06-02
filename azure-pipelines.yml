@@ -90,9 +90,14 @@ stages:
     - stage: Push Image
       displayName: Push Image
       jobs:
-      - job: Scan
+      - job: Login
+        displayName: Docker Login
         steps:
         - task: Docker@2
           inputs:
             containerRegistry: 'azure-container-registry'
             command: 'login'
+      - task: CmdLine@2
+        displayName: Docker Commands
+        inputs:
+          script: 'docker image ls -a'
