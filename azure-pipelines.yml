@@ -98,4 +98,4 @@ stages:
         script: 'docker image ls -a'
     - task: CmdLine@2
       inputs:
-        script: 'docker push $(dockerhub):$(Build.BuildId)'
+        script: 'docker push $(dockerhub):$(Build.BuildNumber)'
