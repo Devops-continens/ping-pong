@@ -87,12 +87,6 @@ stages:
       inputs:
         containerRegistry: 'aqua registry'
         command: 'logout'
-- stage: Push
-  displayName: Push Image
-  jobs:
-  - job: Login
-    displayName: Docker Login
-    steps:
     - task: Docker@2
       inputs:
         containerRegistry: 'azure-container-registry'
@@ -101,3 +95,9 @@ stages:
       displayName: Docker Commands
       inputs:
         script: 'docker image ls -a'
+    - task: Docker@2
+      displayName: Push Image to registry
+      inputs:
+        containerRegistry: 'azure-container-registry'
+        command: 'push'
+        tags: '$(dockerhub):$(Build.BuildNumber)'
