@@ -49,6 +49,8 @@ stages:
           echo "dummy"
           echo $(Build.BuildId)
           echo $(Build.Repository.Name)
+          echo $(Build.DefinitionName)
+          echo $(dockerhub)
 # - stage: Scan
 #   displayName: Scan Image
 #   jobs:
