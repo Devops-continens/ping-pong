@@ -20,22 +20,22 @@ stages:
     pool:
       vmImage: 'ubuntu-latest'
     steps:
-    # - task: Maven@3
-    #   inputs:
-    #     mavenPomFile: 'pom.xml'
-    #     publishJUnitResults: false
-    #     javaHomeOption: 'JDKVersion'
-    #     mavenVersionOption: 'Default'
-    #     mavenAuthenticateFeed: false
-    #     effectivePomSkip: false
-    #     sonarQubeRunAnalysis: false
-    # - task: Docker@2
-    #   inputs:
-    #     containerRegistry: 'docker hub'
-    #     repository: 'devopscontinens'
-    #     command: 'build'
-    #     Dockerfile: '**/Dockerfile'
-    #     arguments: '--tag test:1.0'
+    - task: Maven@3
+      inputs:
+        mavenPomFile: 'pom.xml'
+        publishJUnitResults: false
+        javaHomeOption: 'JDKVersion'
+        mavenVersionOption: 'Default'
+        mavenAuthenticateFeed: false
+        effectivePomSkip: false
+        sonarQubeRunAnalysis: false
+    - task: Docker@2
+      inputs:
+        containerRegistry: 'docker hub'
+        repository: 'devopscontinens'
+        command: 'build'
+        Dockerfile: '**/Dockerfile'
+        arguments: '--tag $(dockerhub):$(Build.BuildNumber)'
 
       
     - task: CmdLine@2
@@ -57,36 +57,36 @@ stages:
 #   - job: Scan
 #     steps:
 
-    # - task: Docker@2
-    #   displayName: Docker aquasec login
-    #   inputs:
-    #     containerRegistry: 'aqua registry'
-    #     command: 'login'
-    # - task: CmdLine@2
-    #   displayName: Docker pull
-    #   inputs:
-    #     script:  |
-    #       docker image pull nginx:latest
-    #       docker image ls
-    # - task: aquasecScanner@4
-    #   inputs:
-    #     image: 'test:1.0'
-    #     scanType: 'local'
-    #     register: false
-    #     hideBase: false
-    #     showNegligible: false
-    #     windowsScannerVersion: '4.2.0'
-    #     scanner: 'registry.aquasec.com/scanner:4.6'
-    #     registry: 'local'
-    #     connection: 'aqua csp'
-    #     caCertificates: true
-    #     scanMalware: true
-    #     showWillNotFix: true
-    # - task: Docker@2
-    #   displayName: Docker aquasec logout
-    #   inputs:
-    #     containerRegistry: 'aqua registry'
-    #     command: 'logout'
+    - task: Docker@2
+      displayName: Docker aquasec login
+      inputs:
+        containerRegistry: 'aqua registry'
+        command: 'login'
+    - task: CmdLine@2
+      displayName: Docker pull
+      inputs:
+        script:  |
+          docker image pull nginx:latest
+          docker image ls
+    - task: aquasecScanner@4
+      inputs:
+        image: '$(dockerhub):$(Build.BuildNumber)'
+        scanType: 'local'
+        register: false
+        hideBase: false
+        showNegligible: false
+        windowsScannerVersion: '4.2.0'
+        scanner: 'registry.aquasec.com/scanner:4.6'
+        registry: 'local'
+        connection: 'aqua csp'
+        caCertificates: true
+        scanMalware: true
+        showWillNotFix: true
+    - task: Docker@2
+      displayName: Docker aquasec logout
+      inputs:
+        containerRegistry: 'aqua registry'
+        command: 'logout'
 - stage: Push
   displayName: Push Image
   jobs:
