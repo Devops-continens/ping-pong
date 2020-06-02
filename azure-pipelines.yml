@@ -102,4 +102,4 @@ stages:
         containerRegistry: 'azure-container-registry'
         repository: '$(usernamespace)'
         command: 'push'
-        tags: '$(projectname):$(Build.BuildNumber)'
+        tags: '$(Build.BuildNumber)'
