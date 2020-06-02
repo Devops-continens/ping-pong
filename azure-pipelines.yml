@@ -21,6 +21,7 @@ stages:
       vmImage: 'ubuntu-latest'
     steps:
     - task: Maven@3
+      displayName: Maven build
       inputs:
         mavenPomFile: 'pom.xml'
         publishJUnitResults: false
@@ -30,19 +31,17 @@ stages:
         effectivePomSkip: false
         sonarQubeRunAnalysis: false
     - task: Docker@2
+      displayName: Docker build
       inputs:
         containerRegistry: 'docker hub'
         repository: '$(usernamespace)'
         command: 'build'
         Dockerfile: '**/Dockerfile'
         arguments: '--tag $(dockerhub):$(Build.BuildNumber)'
-
-      
     - task: CmdLine@2
-      displayName: Docker image list after build  
+      displayName: Print environment variables
       inputs:
         script: |
-          docker image ls --all
           echo "dummy"
           echo $(Build.BuildId)
           echo $(Build.Repository.Name)
@@ -51,24 +50,19 @@ stages:
           echo $(usernamespace)/$(projectname)
           echo $(Build.BuildNumber)
           echo $(Build.BuildId)
-# - stage: Scan
-#   displayName: Scan Image
-#   jobs:
-#   - job: Scan
-#     steps:
-
     - task: Docker@2
       displayName: Docker aquasec login
       inputs:
         containerRegistry: 'aqua registry'
         command: 'login'
-    - task: CmdLine@2
-      displayName: Docker pull
-      inputs:
-        script:  |
-          docker image pull nginx:latest
-          docker image ls
+    # - task: CmdLine@2
+    #   displayName: Docker pull operation
+    #   inputs:
+    #     script:  |
+    #       docker image pull nginx:latest
+    #       docker image ls -all
     - task: aquasecScanner@4
+      displayName: Image Scanning
       inputs:
         image: '$(dockerhub):$(Build.BuildNumber)'
         scanType: 'local'
@@ -93,9 +87,15 @@ stages:
         containerRegistry: 'azure-container-registry'
         command: 'login'
     - task: CmdLine@2
-      displayName: Docker Commands
+      displayName: Docker commands
       inputs:
         script: 'docker image ls -a'
     - task: CmdLine@2
+      displayName: Docker image push
       inputs:
         script: 'docker push $(dockerhub):$(Build.BuildNumber)'
+    - task: Docker@2
+      displayName: Docker logout azure registry
+      inputs:
+        containerRegistry: 'azure-container-registry'
+        command: 'logout'
