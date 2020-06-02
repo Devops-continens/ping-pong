@@ -32,7 +32,7 @@ stages:
     - task: Docker@2
       inputs:
         containerRegistry: 'docker hub'
-        repository: 'devopscontinens'
+        repository: '$(usernamespace)'
         command: 'build'
         Dockerfile: '**/Dockerfile'
         arguments: '--tag $(dockerhub):$(Build.BuildNumber)'
@@ -100,5 +100,6 @@ stages:
       displayName: Push Image to registry
       inputs:
         containerRegistry: 'azure-container-registry'
+        repository: '$(usernamespace)'
         command: 'push'
         tags: '$(dockerhub):$(Build.BuildNumber)'
