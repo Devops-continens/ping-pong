@@ -55,16 +55,17 @@ stages:
       inputs:
         containerRegistry: 'aqua registry'
         command: 'login'
-    # - task: CmdLine@2
-    #   displayName: Docker pull operation
-    #   inputs:
-    #     script:  |
-    #       docker image pull nginx:latest
-    #       docker image ls -all
+    - task: CmdLine@2
+      displayName: Docker pull operation
+      inputs:
+        script:  |
+          docker image pull nginx:latest
+          docker images 
     - task: aquasecScanner@4
       displayName: Image Scanning
       inputs:
-        image: '$(dockerhub):$(Build.BuildNumber)'
+#        image: '$(dockerhub):$(Build.BuildNumber)'
+        image: 'nginx:latest'
         scanType: 'local'
         register: false
         hideBase: false
@@ -72,7 +73,7 @@ stages:
         windowsScannerVersion: '4.2.0'
         scanner: 'registry.aquasec.com/scanner:4.6'
         registry: 'local'
-        connection: 'aqua csp'
+        connection: 'aqua_mtr_csp'
         caCertificates: true
         scanMalware: true
         showWillNotFix: true
