@@ -64,8 +64,8 @@ stages:
     - task: aquasecScanner@4
       displayName: Image Scanning
       inputs:
-#        image: '$(dockerhub):$(Build.BuildNumber)'
-        image: 'nginx:latest'
+        image: '$(dockerhub):$(Build.BuildNumber)'
+#        image: 'nginx:latest'
         scanType: 'local'
         register: false
         hideBase: false
